@@ -1,14 +1,14 @@
 {
-  "main.css": "/typing-game-react/static/css/main.56f270a2.chunk.css",
-  "main.js": "/typing-game-react/static/js/main.053918a0.chunk.js",
-  "main.js.map": "/typing-game-react/static/js/main.053918a0.chunk.js.map",
-  "static/js/1.fa92c112.chunk.js": "/typing-game-react/static/js/1.fa92c112.chunk.js",
-  "static/js/1.fa92c112.chunk.js.map": "/typing-game-react/static/js/1.fa92c112.chunk.js.map",
+  "main.css": "/typing-game-react/static/css/main.58bce56a.chunk.css",
+  "main.js": "/typing-game-react/static/js/main.f647bd38.chunk.js",
+  "main.js.map": "/typing-game-react/static/js/main.f647bd38.chunk.js.map",
+  "static/js/1.4a34e45d.chunk.js": "/typing-game-react/static/js/1.4a34e45d.chunk.js",
+  "static/js/1.4a34e45d.chunk.js.map": "/typing-game-react/static/js/1.4a34e45d.chunk.js.map",
   "runtime~main.js": "/typing-game-react/static/js/runtime~main.e5ea6547.js",
   "runtime~main.js.map": "/typing-game-react/static/js/runtime~main.e5ea6547.js.map",
   "static/media/logo.svg": "/typing-game-react/static/media/logo.5d5d9eef.svg",
-  "static/css/main.56f270a2.chunk.css.map": "/typing-game-react/static/css/main.56f270a2.chunk.css.map",
+  "static/css/main.58bce56a.chunk.css.map": "/typing-game-react/static/css/main.58bce56a.chunk.css.map",
   "index.html": "/typing-game-react/index.html",
-  "precache-manifest.45c84faff9754700ea8b397402ffa478.js": "/typing-game-react/precache-manifest.45c84faff9754700ea8b397402ffa478.js",
+  "precache-manifest.1cf38d22acad7e9353cb6b09886d48f3.js": "/typing-game-react/precache-manifest.1cf38d22acad7e9353cb6b09886d48f3.js",
   "service-worker.js": "/typing-game-react/service-worker.js"
 }

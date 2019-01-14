@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/typing-game-react/precache-manifest.45c84faff9754700ea8b397402ffa478.js"
+  "/typing-game-react/precache-manifest.1cf38d22acad7e9353cb6b09886d48f3.js"
 );
 
 workbox.clientsClaim();
