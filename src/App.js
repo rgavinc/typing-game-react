@@ -6,12 +6,6 @@ import "./App.css";
 class App extends Component {
   state = {};
 
-  goals = [
-    "When forty winters shall besiege thy brow,",
-    "And dig deep trenches in thy beauty's field,",
-    "Thy youth's proud livery so gazed on now,"
-  ];
-
   setInitialGame = () =>
     this.setState(
       {
@@ -22,25 +16,23 @@ class App extends Component {
         overallTime: 1.0
       },
       () => {
-        this.input.value = "";
-        this.input.focus();
+        if (this.input) {
+          this.input.value = "";
+          this.input.focus();
+        }
       }
     );
 
   componentDidMount() {
     this.setInitialGame();
-    // fetch(
-    //   "https://cors-anywhere.herokuapp.com/http://poetrydb.org/author,title/Shakespeare;Sonnet",
-    //   {
-    //     headers: {
-    //       "content-type": "aplication/json: charset=UTF-8",
-    //       apiKey: "92d0fd7ec6d55e40b386a68d8f3e5f6f"
-    //     }
-    //   }
-    // )
-    //   .then(data => data.json())
-    //   .then(res => console.log({ res }))
-    //   .catch(err => console.log({ err }));
+    fetch("http://localhost:3000/challenge", {
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => response.json())
+      .then(challenge => this.setState({ goals: challenge }))
+      .catch(err => console.log({ err }));
   }
 
   componentWillUnmount() {
@@ -84,7 +76,7 @@ class App extends Component {
         gameStatus = "start";
         this.startTimer();
       }
-      const goal = this.goals[currentGoalIdx];
+      const goal = state.goals[currentGoalIdx];
       const inputValLen = inputVal.length;
       if (inputVal === goal.substring(0, inputValLen)) {
         isInputCorrect = true;
@@ -92,7 +84,7 @@ class App extends Component {
       if (inputVal === goal) {
         remainingTime = Number(remainingTime) + 8;
         currentGoalIdx++;
-        if (currentGoalIdx === this.goals.length) {
+        if (currentGoalIdx === state.goals.length) {
           gameStatus = "win";
           clearInterval(this.timer);
         }
@@ -106,60 +98,66 @@ class App extends Component {
       currentGoalIdx,
       gameStatus,
       remainingTime,
-      overallTime
+      overallTime,
+      goals
     } = this.state;
     console.log({ overallTime });
-    return (
-      <div className="App Main">
-        {(gameStatus === "start" || gameStatus === "preStart") && (
-          <React.Fragment>
-            <h2>
-              {gameStatus === "start" ? remainingTime : "To begin start typing"}
-            </h2>
-            <h3>
-              {currentGoalIdx + 1}/{this.goals.length}
-            </h3>
-            <p>{this.goals[currentGoalIdx]}</p>
-            <input
-              type="text"
-              onBlur={this.focusInput}
-              ref={input => (this.input = input)}
-              onChange={e => this.handleInputChange(e.target.value)}
-              style={{
-                color: isInputCorrect ? "green" : "red"
-              }}
-            />
-          </React.Fragment>
-        )}
-        {gameStatus === "win" && (
-          <React.Fragment>
-            <p>
-              You Win! You completed the task in{" "}
-              {Number.parseFloat(overallTime).toFixed(2)} seconds
-            </p>
-            <button
-              className="btn btn-primary"
-              onClick={this.setInitialGame}
-              ref={restartButton => (this.restartButton = restartButton)}
-            >
-              Reset Game
-            </button>
-          </React.Fragment>
-        )}
-        {gameStatus === "lose" && (
-          <React.Fragment>
-            <p>You Lose!!</p>
-            <button
-              className="btn btn-primary"
-              ref={restartButton => (this.restartButton = restartButton)}
-              onClick={this.setInitialGame}
-            >
-              Reset Game
-            </button>
-          </React.Fragment>
-        )}
-      </div>
-    );
+
+    if (goals)
+      return (
+        <div className="App Main">
+          {(gameStatus === "start" || gameStatus === "preStart") && (
+            <React.Fragment>
+              <h2>
+                {gameStatus === "start"
+                  ? remainingTime
+                  : "To begin start typing"}
+              </h2>
+              <h3>
+                {currentGoalIdx + 1}/{goals.length}
+              </h3>
+              <p>{goals[currentGoalIdx]}</p>
+              <input
+                type="text"
+                onBlur={this.focusInput}
+                ref={input => (this.input = input)}
+                onChange={e => this.handleInputChange(e.target.value)}
+                style={{
+                  color: isInputCorrect ? "green" : "red"
+                }}
+              />
+            </React.Fragment>
+          )}
+          {gameStatus === "win" && (
+            <React.Fragment>
+              <p>
+                You Win! You completed the task in{" "}
+                {Number.parseFloat(overallTime).toFixed(2)} seconds
+              </p>
+              <button
+                className="btn btn-primary"
+                onClick={this.setInitialGame}
+                ref={restartButton => (this.restartButton = restartButton)}
+              >
+                Reset Game
+              </button>
+            </React.Fragment>
+          )}
+          {gameStatus === "lose" && (
+            <React.Fragment>
+              <p>You Lose!!</p>
+              <button
+                className="btn btn-primary"
+                ref={restartButton => (this.restartButton = restartButton)}
+                onClick={this.setInitialGame}
+              >
+                Reset Game
+              </button>
+            </React.Fragment>
+          )}
+        </div>
+      );
+    return <p>Loading...</p>;
   }
 }
 
