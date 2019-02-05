@@ -1,16 +1,8 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
-import "./App.css";
 import Game from "./Game";
-import ChallegeChooser from "./ChallengeChooser";
 
-const Index = () => <h2>Home</h2>;
-const About = () => <h2>About</h2>;
-const Users = () => <h2>Users</h2>;
-
-class App extends Component {
+class ChallengeChooser extends Component {
   state = {
     challenges: null,
     err: null
@@ -27,17 +19,16 @@ class App extends Component {
   }
   render() {
     const { err, challenges } = this.state;
-    console.log("location", window.location.pathname);
     if (err) return <p>{err}</p>;
     return (
-      <Router>
-        <React.Fragment>
-          <Route path="/game/:id" component={Game} />
-          <Route path="/" component={ChallegeChooser} />
-        </React.Fragment>
-      </Router>
+      <React.Fragment>
+        {challenges &&
+          challenges.map(challenge => (
+            <Link to={`game/${challenge.id}`}>{challenge.name}</Link>
+          ))}
+      </React.Fragment>
     );
   }
 }
 
-export default App;
+export default ChallengeChooser;
